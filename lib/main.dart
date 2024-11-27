@@ -4,10 +4,12 @@ import 'package:techstore/core/configs/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:techstore/presentation/splash/bloc/splash_cubit.dart';
 import 'package:techstore/presentation/splash/pages/splash.dart';
+import 'package:techstore/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
   await Firebase.initializeApp();
+  await initializeDependencies();
   runApp(const MainApp());
 }
 

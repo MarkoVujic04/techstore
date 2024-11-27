@@ -1,14 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/common/widgets/my_button.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
+import 'package:techstore/data/auth/models/user_creation_req.dart';
 import 'package:techstore/presentation/auth/pages/forgot_password.dart';
 import 'package:techstore/presentation/auth/pages/login.dart';
-import 'package:techstore/presentation/auth/pages/password_page.dart';
+import 'package:techstore/presentation/auth/pages/user_info_page.dart';
+
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  SignupPage({super.key});
+
+  final TextEditingController _firstNameCon = TextEditingController();
+  final TextEditingController _lastNameCon = TextEditingController();
+  final TextEditingController _emailCon = TextEditingController();
+  final TextEditingController _passwordCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +116,12 @@ class SignupPage extends StatelessWidget {
   Widget _continueButton(BuildContext context) {
     return MyButton(
       onPressed: () {
-        AppNavigator.push(context, const PasswordPage());
+        AppNavigator.push(context, UserInfoPage(userCreationReq: UserCreationReq(
+          firstName: _firstNameCon.text,
+          email: _emailCon.text,
+          lastName: _lastNameCon.text,
+          password: _passwordCon.text,
+        )));
       }, 
       title: "Continue"
     );

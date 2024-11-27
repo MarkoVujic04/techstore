@@ -104,7 +104,7 @@ class LoginPage extends StatelessWidget {
           TextSpan(
             text: " Create one",
             recognizer: TapGestureRecognizer()..onTap = () {
-              AppNavigator.push(context, const SignupPage());
+              AppNavigator.push(context, SignupPage());
             },
             style: TextStyle(
               color: const Color(0xFF29B6F6),
