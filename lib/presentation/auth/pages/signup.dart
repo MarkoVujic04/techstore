@@ -5,6 +5,7 @@ import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/common/widgets/my_button.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/data/auth/models/user_creation_req.dart';
+import 'package:techstore/data/auth/models/user_signin_req.dart';
 import 'package:techstore/presentation/auth/pages/forgot_password.dart';
 import 'package:techstore/presentation/auth/pages/login.dart';
 import 'package:techstore/presentation/auth/pages/user_info_page.dart';
@@ -25,27 +26,29 @@ class SignupPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _signUpText(context),
-            ],
-          ),
-          SizedBox(height: screenHeight * 0.04),
-          _emailField(context),
-          SizedBox(height: screenHeight * 0.02),
-          _passwordField(context),
-          SizedBox(height: screenHeight * 0.02),
-          _firstNameField(context),
-          SizedBox(height: screenHeight * 0.02),
-          _lastNameField(context),
-          SizedBox(height: screenHeight * 0.04),
-          _continueButton(context),
-          SizedBox(height: screenHeight * 0.02),
-          _createAccount(context),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _signUpText(context),
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.04),
+            _emailField(context),
+            SizedBox(height: screenHeight * 0.02),
+            _passwordField(context),
+            SizedBox(height: screenHeight * 0.02),
+            _firstNameField(context),
+            SizedBox(height: screenHeight * 0.02),
+            _lastNameField(context),
+            SizedBox(height: screenHeight * 0.04),
+            _continueButton(context),
+            SizedBox(height: screenHeight * 0.02),
+            _createAccount(context),
+          ],
+        ),
       ),
     );
   }
@@ -65,6 +68,7 @@ class SignupPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
+        controller: _firstNameCon,
         decoration: InputDecoration(
           isDense: true,
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -78,6 +82,7 @@ class SignupPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
+        controller: _lastNameCon,
         decoration: InputDecoration(
           isDense: true,
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
@@ -88,30 +93,36 @@ class SignupPage extends StatelessWidget {
   }
 
   Widget _emailField(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        decoration: InputDecoration(
-          isDense: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          hintText: "Enter Email", hintStyle: TextStyle(color: Colors.grey.shade400)
-        ),
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    child: TextField(
+      controller: _emailCon,
+      decoration: InputDecoration(
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        hintText: "Enter Email",
+        hintStyle: TextStyle(color: Colors.grey.shade400),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _passwordField(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        decoration: InputDecoration(
-          isDense: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          hintText: "Enter Password", hintStyle: TextStyle(color: Colors.grey.shade400)
-        ),
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    child: TextField(
+      controller: _passwordCon, 
+      obscureText: true,
+      decoration: InputDecoration(
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        hintText: "Enter Password",
+        hintStyle: TextStyle(color: Colors.grey.shade400),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _continueButton(BuildContext context) {
     return MyButton(
@@ -140,7 +151,7 @@ class SignupPage extends StatelessWidget {
           TextSpan(
             text: " Sign In",
             recognizer: TapGestureRecognizer()..onTap = () {
-              AppNavigator.push(context, const LoginPage());
+              AppNavigator.push(context, LoginPage(signinReq: UserSigninReq(email: _emailCon.text, password: ""),));
             },
             style: TextStyle(
               color: const Color(0xFF29B6F6),
@@ -165,7 +176,7 @@ class SignupPage extends StatelessWidget {
           TextSpan(
             text: " Reset it",
             recognizer: TapGestureRecognizer()..onTap = () {
-               AppNavigator.push(context, const ForgotPasswordPage());
+               AppNavigator.push(context, ForgotPasswordPage());
             },
             style: TextStyle(
               color: const Color(0xFF29B6F6),

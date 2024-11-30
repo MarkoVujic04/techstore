@@ -4,6 +4,10 @@ import 'package:techstore/data/auth/repository/auth_repository_impl.dart';
 import 'package:techstore/data/auth/source/auth_firebase_service.dart';
 import 'package:techstore/domain/auth/repository/auth.dart';
 import 'package:techstore/domain/auth/usecases/get_ages_usecase.dart';
+import 'package:techstore/domain/auth/usecases/get_user_usecase.dart';
+import 'package:techstore/domain/auth/usecases/is_logged_in_usecase.dart';
+import 'package:techstore/domain/auth/usecases/reset_password.dart';
+import 'package:techstore/domain/auth/usecases/signin.dart';
 import 'package:techstore/domain/auth/usecases/signup.dart';
 
 final sl = GetIt.instance;
@@ -27,5 +31,21 @@ Future<void> initializeDependencies() async {
 
    sl.registerSingleton<GetAgesUseCase>(
     GetAgesUseCase()
+  );
+
+  sl.registerSingleton<SignInUseCase>(
+    SignInUseCase()
+  );
+
+  sl.registerSingleton<ResetPasswordUseCase>(
+    ResetPasswordUseCase()
+  );
+
+  sl.registerSingleton<IsLoggedInUseCase>(
+    IsLoggedInUseCase()
+  );
+
+  sl.registerSingleton<GetUserUseCase>(
+    GetUserUseCase()
   );
 }
