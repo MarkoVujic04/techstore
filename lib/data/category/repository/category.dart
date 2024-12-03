@@ -5,19 +5,21 @@ import 'package:techstore/domain/category/repository/category.dart';
 import 'package:techstore/service_locator.dart';
 
 class CategoryRepositoryImpl extends CategoryRepository {
+
+
   @override
   Future<Either> getCategories() async {
     var categories = await sl<CategoryFirebaseService>().getCategories();
     return categories.fold(
-      (error) {
+      (error){
         return Left(error);
       }, 
-      (data) {
+      (data){
         return Right(
-          CategoryModel.fromMap(data).toEntity(),
+          List.from(data).map((e) => CategoryModel.fromMap(e).toEntity()).toList()
         );
-      },
+      }
     );
   }
-
+  
 }
