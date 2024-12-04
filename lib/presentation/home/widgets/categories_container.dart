@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techstore/common/bloc/categories/categories_display_cubit.dart';
 import 'package:techstore/common/bloc/categories/categories_display_state.dart';
 import 'package:techstore/common/helper/image_display.dart';
-import 'package:techstore/core/configs/theme/app_images.dart';
 import 'package:techstore/domain/category/entity/category_entity.dart';
 
 class Categories extends StatelessWidget {

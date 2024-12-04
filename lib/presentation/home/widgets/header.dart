@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/core/configs/theme/app_images.dart';
-import 'package:techstore/core/configs/theme/app_vectors.dart';
 import 'package:techstore/domain/auth/enitities/user_entity.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_state.dart';

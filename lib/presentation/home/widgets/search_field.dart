@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:techstore/common/helper/navigator/app_navigator.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key});
