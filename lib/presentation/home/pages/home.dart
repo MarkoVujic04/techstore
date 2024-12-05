@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
             Header(),
             SizedBox(height: screenHeight * 0.03,),
             Categories(),
-            SizedBox(height: screenHeight * 0.03,),
+            SizedBox(height: screenHeight * 0.04,),
             TopSelling(),
           ],
         ),

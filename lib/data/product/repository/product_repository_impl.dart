@@ -20,4 +20,10 @@ class ProductRepositoryImpl extends ProductRepository{
       }
     );
   }
+  
+  @override
+  Future<Either> getProductsByCategoryId(String categoryId) {
+    // TODO: implement getProductsByCategoryId
+    throw UnimplementedError();
+  }
 }

@@ -5,18 +5,15 @@ import 'package:techstore/domain/product/entity/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity productEntity;
-  const ProductCard({
-    required this.productEntity,
-    super.key
-  });
+  const ProductCard({required this.productEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    // Debug: Print the generated URL
-    String imageUrl = ImageDisplayHelper.generateProductImageURL(productEntity.images[0]);
+    String imageUrl =
+        ImageDisplayHelper.generateProductImageURL(productEntity.images[0]);
     print("Product Title: ${productEntity.title}");
     print("Image Filename: ${productEntity.images}");
 
@@ -29,6 +26,10 @@ class ProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.secondBackground,
           borderRadius: BorderRadius.circular(screenHeight * 0.02),
+          border: Border.all(
+            color: AppColors.primary,
+            width: screenWidth * 0.002
+          )
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,11 +39,19 @@ class ProductCard extends StatelessWidget {
               flex: 4,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black, 
+                      Color(0xFF29B6F6),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+              
+                  ),
                   borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(screenHeight * 0.02),
-                  topRight: Radius.circular(screenHeight * 0.02),
-                ),
+                    topLeft: Radius.circular(screenHeight * 0.02),
+                    topRight: Radius.circular(screenHeight * 0.02),
+                  ),
                   image: DecorationImage(
                     fit: BoxFit.contain,
                     image: NetworkImage(
@@ -51,8 +60,8 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
               ),
-            ),
             ),
             Expanded(
               flex: 1,
