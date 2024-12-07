@@ -5,6 +5,7 @@ import 'package:techstore/common/bloc/categories/categories_display_state.dart';
 import 'package:techstore/common/helper/image_display.dart';
 import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
+import 'package:techstore/presentation/category_products/pages/category_products.dart';
 
 class AllCategoriesPage extends StatelessWidget {
   const AllCategoriesPage({super.key});
@@ -59,7 +60,7 @@ class AllCategoriesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // AppNavigator.push(context, CategoryProductsPage(categoryEntity: state.categories[index],));
+                     AppNavigator.push(context, CategoryProductsPage(categoryEntity: state.categories[index]));
                   },
                   child: Container(
                     height: screenHeight * 0.11,

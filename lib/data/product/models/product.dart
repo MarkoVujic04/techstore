@@ -26,11 +26,17 @@ class ProductModel {
   return ProductModel(
     categoryId: map['categoryId'] as String? ?? '',
     createdDate: map['createdDate'] as Timestamp? ?? Timestamp.now(),
-    discountedPrice: map['discountedPrice'] as num? ?? 0,
+    discountedPrice: map['discountedPrice'] is num
+        ? map['discountedPrice'] as num
+        : num.tryParse(map['discountedPrice'].toString()) ?? 0,
     images: (map['images'] as List<dynamic>? ?? []).map((e) => e.toString()).toList(),
-    price: map['price'] as num? ?? 0,
+    price: map['price'] is num
+        ? map['price'] as num
+        : num.tryParse(map['price'].toString()) ?? 0,
     productId: map['productId'] as String? ?? '',
-    salesNumber: map['salesNumber'] as int? ?? 0,
+    salesNumber: map['salesNumber'] is int
+        ? map['salesNumber'] as int
+        : int.tryParse(map['salesNumber'].toString()) ?? 0,
     title: map['title'] as String? ?? '',
   );
 }

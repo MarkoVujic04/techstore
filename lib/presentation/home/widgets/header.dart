@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/core/configs/theme/app_images.dart';
 import 'package:techstore/domain/auth/enitities/user_entity.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_state.dart';
 import 'package:techstore/presentation/home/widgets/search_field.dart';
+import 'package:techstore/presentation/search/search.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -28,14 +30,21 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _profileImage(context, state.user),
-                Expanded(child: SearchField()),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      AppNavigator.push(context, const SearchPage());
+                    },
+                    child: AbsorbPointer(
+                      child: SearchField(),
+                    ),
+                  ),
+                ),
                 _card(context),
               ],
             );
           }
-          return Container(
-
-          );
+          return Container();
         },
       ),
     );
@@ -51,11 +60,10 @@ class Header extends StatelessWidget {
         width: screenWidth * 0.11,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: user.image.isEmpty ?
-            AssetImage(
-              AppImages.profile
-            ) : NetworkImage(user.image), fit: BoxFit.contain
-          ),
+              image: user.image.isEmpty
+                  ? AssetImage(AppImages.profile)
+                  : NetworkImage(user.image),
+              fit: BoxFit.contain),
           color: Colors.white,
           shape: BoxShape.circle,
         ),
@@ -76,8 +84,10 @@ class Header extends StatelessWidget {
             height: screenHeight * 0.11,
             width: screenWidth * 0.11,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: screenWidth * 0.005),
-                color: AppColors.background, shape: BoxShape.circle),
+                border:
+                    Border.all(color: Colors.white, width: screenWidth * 0.005),
+                color: AppColors.background,
+                shape: BoxShape.circle),
             child: Icon(Icons.shopping_bag_rounded, color: Color(0xFF29B6F6))),
       ),
     );
