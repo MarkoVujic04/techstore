@@ -8,6 +8,7 @@ class ProductEntity {
   final List<String> images;
   final String productId;
   final int salesNumber;
+  final String description;
   final String title;
 
   ProductEntity({
@@ -18,6 +19,7 @@ class ProductEntity {
     required this.images, 
     required this.productId, 
     required this.salesNumber, 
+    required this.description,
     required this.title
   });
 }

@@ -9,6 +9,7 @@ class ProductModel {
   final List<String> images;
   final String productId;
   final int salesNumber;
+  final String description;
   final String title;
 
   ProductModel({
@@ -19,27 +20,24 @@ class ProductModel {
     required this.images, 
     required this.productId, 
     required this.salesNumber, 
+    required this.description,
     required this.title
   });
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
   return ProductModel(
-    categoryId: map['categoryId'] as String? ?? '',
-    createdDate: map['createdDate'] as Timestamp? ?? Timestamp.now(),
-    discountedPrice: map['discountedPrice'] is num
-        ? map['discountedPrice'] as num
-        : num.tryParse(map['discountedPrice'].toString()) ?? 0,
-    images: (map['images'] as List<dynamic>? ?? []).map((e) => e.toString()).toList(),
-    price: map['price'] is num
-        ? map['price'] as num
-        : num.tryParse(map['price'].toString()) ?? 0,
     productId: map['productId'] as String? ?? '',
-    salesNumber: map['salesNumber'] is int
-        ? map['salesNumber'] as int
-        : int.tryParse(map['salesNumber'].toString()) ?? 0,
     title: map['title'] as String? ?? '',
+    categoryId: map['categoryId'] as String? ?? '',
+    price: map['price'] is num ? map['price'].toDouble() : 0.0,
+    discountedPrice: map['discountedPrice'] is num ? map['discountedPrice'].toDouble() : 0.0,
+    images: (map['images'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
+    salesNumber: map['salesNumber'] as int? ?? 0,
+    description: map['description'] as String? ?? '', // Map the description
+    createdDate: map['createdDate'] as Timestamp? ?? Timestamp.now(),
   );
 }
+
 
 
    Map<String, dynamic> toMap() {
@@ -51,6 +49,7 @@ class ProductModel {
       'price': price,
       'productId': productId,
       'salesNumber': salesNumber,
+      "description": description,
       'title': title,
     };
   }
@@ -67,6 +66,7 @@ extension ProductXModel on ProductModel {
       price: price,
       productId: productId, 
       salesNumber: salesNumber, 
+      description: description,
       title: title
     );
   }
@@ -82,6 +82,7 @@ extension ProductXEntity on ProductEntity {
       price: price,
       productId: productId, 
       salesNumber: salesNumber, 
+      description: description,
       title: title
     );
   }
