@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techstore/common/bloc/button/button_state_cubit.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/domain/product/entity/product_entity.dart';
 import 'package:techstore/presentation/product_detail/widgets/add_to_bag.dart';
@@ -15,26 +17,29 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-              ProductImages(productEntity: productEntity,),
-              SizedBox(height: screenHeight * 0.02,),
-              ProductTitle(productEntity: productEntity),
-              SizedBox(height: screenHeight * 0.01,),
-              ProductPrice(productEntity: productEntity),
-              SizedBox(height: screenHeight * 0.01,),
-              Divider(height: screenHeight * 0.01, color: Colors.white,),
-              SizedBox(height: screenHeight * 0.01,),
-              ProductDescription(productEntity: productEntity),
-              SizedBox(height: screenHeight * 0.02,),
-              AddToBag(productEntity: productEntity),
-          ],
+    return BlocProvider(
+      create: (context) => ButtonStateCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.background,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                ProductImages(productEntity: productEntity,),
+                SizedBox(height: screenHeight * 0.02,),
+                ProductTitle(productEntity: productEntity),
+                SizedBox(height: screenHeight * 0.01,),
+                ProductPrice(productEntity: productEntity),
+                SizedBox(height: screenHeight * 0.01,),
+                Divider(height: screenHeight * 0.01, color: Colors.white,),
+                SizedBox(height: screenHeight * 0.01,),
+                ProductDescription(productEntity: productEntity),
+                SizedBox(height: screenHeight * 0.02,),
+                AddToBag(productEntity: productEntity),
+            ],
+          ),
         ),
       ),
     );

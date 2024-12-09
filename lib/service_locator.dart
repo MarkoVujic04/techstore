@@ -5,6 +5,8 @@ import 'package:techstore/data/auth/repository/auth_repository_impl.dart';
 import 'package:techstore/data/auth/source/auth_firebase_service.dart';
 import 'package:techstore/data/category/repository/category.dart';
 import 'package:techstore/data/category/source/category_firebase_service.dart';
+import 'package:techstore/data/order/repository/order.dart';
+import 'package:techstore/data/order/source/order_firebase_service.dart';
 import 'package:techstore/data/product/repository/product_repository_impl.dart';
 import 'package:techstore/data/product/source/product_firebase_service.dart';
 import 'package:techstore/domain/auth/repository/auth.dart';
@@ -16,6 +18,8 @@ import 'package:techstore/domain/auth/usecases/signin.dart';
 import 'package:techstore/domain/auth/usecases/signup.dart';
 import 'package:techstore/domain/category/repository/category.dart';
 import 'package:techstore/domain/category/usecases/get_categories.dart';
+import 'package:techstore/domain/order/repositories/order.dart';
+import 'package:techstore/domain/order/usecases/add_to_cart_usecase.dart';
 import 'package:techstore/domain/product/repository/product.dart';
 import 'package:techstore/domain/product/usecases/get_products_by_categoryId.dart';
 import 'package:techstore/domain/product/usecases/get_products_by_title.dart';
@@ -38,6 +42,11 @@ Future<void> initializeDependencies() async {
     ProductFirebaseServiceImpl()
   );
 
+  sl.registerSingleton<OrderFirebaseService>(
+    OrderFirebaseServiceImpl()
+  );
+
+
   //Repositories
   sl.registerSingleton<AuthRepository>(
     AuthRepositoryImpl()
@@ -49,6 +58,10 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<ProductRepository>(
     ProductRepositoryImpl()
+  );
+
+  sl.registerSingleton<OrderRepository>(
+    OrderRepositoryImpl()
   );
 
   //Usecases
@@ -90,6 +103,10 @@ Future<void> initializeDependencies() async {
 
   sl.registerSingleton<GetProductsByTitleUseCase>(
     GetProductsByTitleUseCase()
+  );
+
+  sl.registerSingleton<AddToCartUseCase>(
+    AddToCartUseCase()
   );
 
 }
