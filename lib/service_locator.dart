@@ -20,6 +20,9 @@ import 'package:techstore/domain/category/repository/category.dart';
 import 'package:techstore/domain/category/usecases/get_categories.dart';
 import 'package:techstore/domain/order/repositories/order.dart';
 import 'package:techstore/domain/order/usecases/add_to_cart_usecase.dart';
+import 'package:techstore/domain/order/usecases/get_cart_products.dart';
+import 'package:techstore/domain/order/usecases/order_registration.dart';
+import 'package:techstore/domain/order/usecases/remove_cart_product.dart';
 import 'package:techstore/domain/product/repository/product.dart';
 import 'package:techstore/domain/product/usecases/get_products_by_categoryId.dart';
 import 'package:techstore/domain/product/usecases/get_products_by_title.dart';
@@ -109,4 +112,15 @@ Future<void> initializeDependencies() async {
     AddToCartUseCase()
   );
 
+  sl.registerSingleton<GetCartProductsUseCase>(
+    GetCartProductsUseCase()
+  );
+
+  sl.registerSingleton<RemoveCartUseCase>(
+    RemoveCartUseCase()
+  );
+
+  sl.registerSingleton<OrderRegistrationUseCase>(
+    OrderRegistrationUseCase()
+  );
 }

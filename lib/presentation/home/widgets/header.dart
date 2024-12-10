@@ -4,6 +4,7 @@ import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/core/configs/theme/app_images.dart';
 import 'package:techstore/domain/auth/enitities/user_entity.dart';
+import 'package:techstore/presentation/cart/pages/cart.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_state.dart';
 import 'package:techstore/presentation/home/widgets/search_field.dart';
@@ -76,7 +77,7 @@ class Header extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        // AppNavigator.push(context,const CartPage());
+         AppNavigator.push(context,const CartPage());
       },
       child: Padding(
         padding: EdgeInsets.all(screenHeight * 0.04),
