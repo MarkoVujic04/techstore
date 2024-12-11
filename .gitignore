@@ -36,6 +36,8 @@ pubspec.lock
 # Firebase Config
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+/lib/data/stripe/services/stripe_service.dart
+
 
 # Secrets
 *.env
