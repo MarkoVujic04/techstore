@@ -62,4 +62,32 @@ class ProductRepositoryImpl extends ProductRepository {
       },
     );
   }
+  
+  @override
+  Future<Either> addOrRemoveFavoriteProduct(ProductEntity productEntity) async {
+     var returnedData =
+        await sl<ProductFirebaseService>().addOrRemoveFavoriteProduct(productEntity);
+    return returnedData.fold((error) {
+      return Left(error);
+    }, (data) {
+      return Right(data);
+    });
+  }
+  
+  @override
+  Future<bool> isFavorite(String productId) async {
+    return await sl<ProductFirebaseService>().isFavorite(productId);
+  }
+  
+  @override
+  Future<Either> getFavoritesProducts() async {
+    var products = await sl<ProductFirebaseService>().getFavoritesProducts();
+    return products.fold((error) {
+      return Left(error);
+    }, (data) {
+      return Right(List.from(data)
+          .map((e) => ProductModel.fromMap(e).toEntity())
+          .toList());
+    });
+  }
 }
