@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
             Categories(),
             SizedBox(height: screenHeight * 0.04,),
             TopSelling(),
+            SizedBox(height: screenHeight * 0.08,),
           ],
         ),
       ),

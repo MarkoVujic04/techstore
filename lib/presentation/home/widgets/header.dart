@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techstore/common/helper/navigator/app_navigator.dart';
 import 'package:techstore/core/configs/theme/app_colors.dart';
 import 'package:techstore/core/configs/theme/app_images.dart';
 import 'package:techstore/domain/auth/enitities/user_entity.dart';
+import 'package:techstore/presentation/auth/pages/login.dart';
+import 'package:techstore/presentation/auth/pages/signup.dart';
 import 'package:techstore/presentation/cart/pages/cart.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_cubit.dart';
 import 'package:techstore/presentation/home/bloc/user_info_display_state.dart';
@@ -54,22 +57,56 @@ class Header extends StatelessWidget {
   Widget _profileImage(BuildContext context, UserEntity user) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: EdgeInsets.all(screenHeight * 0.04),
-      child: Container(
-        height: screenHeight * 0.11,
-        width: screenWidth * 0.11,
-        decoration: BoxDecoration(
-          image: DecorationImage(
+      child: PopupMenuButton<String>(
+        onSelected: (value) async {
+          if (value == 'signOut') {
+            await _signOut(context);
+          }
+        },
+        color: Colors.white,
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: 'signOut',
+            child: Text('Sign Out',
+              style: TextStyle(
+                color: Colors.black
+              ),
+            ),
+            
+          ),
+        ],
+        child: Container(
+          height: screenHeight * 0.11,
+          width: screenWidth * 0.11,
+          decoration: BoxDecoration(
+            image: DecorationImage(
               image: user.image.isEmpty
-                  ? AssetImage(AppImages.profile)
+                  ? AssetImage(AppImages.profile) as ImageProvider
                   : NetworkImage(user.image),
-              fit: BoxFit.contain),
-          color: Colors.white,
-          shape: BoxShape.circle,
+              fit: BoxFit.contain,
+            ),
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      AppNavigator.pushReplacement(context, SignupPage());
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to sign out: $e'),
+        ),
+      );
+    }
   }
 
   Widget _card(BuildContext context) {
@@ -77,7 +114,7 @@ class Header extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-         AppNavigator.push(context,const CartPage());
+        AppNavigator.push(context, const CartPage());
       },
       child: Padding(
         padding: EdgeInsets.all(screenHeight * 0.04),

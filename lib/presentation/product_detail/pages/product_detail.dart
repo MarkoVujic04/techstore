@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techstore/common/bloc/button/button_state_cubit.dart';
@@ -17,29 +16,51 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
     return BlocProvider(
       create: (context) => ButtonStateCubit(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.background,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-                ProductImages(productEntity: productEntity,),
-                SizedBox(height: screenHeight * 0.02,),
-                ProductTitle(productEntity: productEntity),
-                SizedBox(height: screenHeight * 0.01,),
-                ProductPrice(productEntity: productEntity),
-                SizedBox(height: screenHeight * 0.01,),
-                Divider(height: screenHeight * 0.01, color: Colors.white,),
-                SizedBox(height: screenHeight * 0.01,),
-                ProductDescription(productEntity: productEntity),
-                SizedBox(height: screenHeight * 0.02,),
-                AddToBag(productEntity: productEntity),
-            ],
-          ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: EdgeInsets.only(bottom: screenHeight * 0.1), 
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: AppColors.secondBackground, 
+                    height: screenHeight * 0.30, 
+                    child: Center(
+                      child: ProductImages(productEntity: productEntity), 
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  ProductTitle(productEntity: productEntity),
+                  SizedBox(height: screenHeight * 0.01),
+                  ProductPrice(productEntity: productEntity),
+                  SizedBox(height: screenHeight * 0.01),
+                  Divider(height: screenHeight * 0.01, color: Colors.white),
+                  if (productEntity.description != null &&
+                      productEntity.description!.isNotEmpty) ...[
+                    SizedBox(height: screenHeight * 0.01),
+                    ProductDescription(productEntity: productEntity),
+                  ],
+                  SizedBox(height: screenHeight * 0.02),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: AppColors.background,
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                child: AddToBag(productEntity: productEntity),
+              ),
+            ),
+          ],
         ),
       ),
     );
